@@ -1,13 +1,16 @@
 from random import randrange
+from time import sleep
 
 
-with open('4letters.txt') as allWords:
+with open('wordlist.txt') as allWords:
     words = allWords.readlines()
 
 words = [word.strip('\n') for word in words]
 
-for x in range(0, 10):
+while True:
     firstWord = words[randrange(len(words))]
     secondWord = words[randrange(len(words))]
 
-    print(str(x) + ': ', firstWord, secondWord)
+    print(firstWord, secondWord)
+
+    sleep(5)
