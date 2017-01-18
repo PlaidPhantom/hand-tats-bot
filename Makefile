@@ -18,15 +18,15 @@ endif
 help: ## Show this help text
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-configure: ## set up production environment (python venv, pip). Will install `virtualenv` globally.
+configure: ## set up virtualenv, pip. Installs virtualenv globally
 	pip install virtualenv
 	$(PYTHON) -m virtualenv $(VENV_NAME)
 	source $(VENV_ACTIVATE) && pip install -r requirements.txt && deactivate
 
-pip-install: ## add a package to the python venv. usage: make pip-install PKG=<package name>
+pip-install: ## install pip pkg to venv. ex: `make pip-install PKG=<pkg>`
 	source $(VENV_ACTIVATE) && pip install $(PKG) && pip freeze > requirements.txt && deactivate
 
-pip-uninstall: ## remove a package from the python venv. usage: make pip-uninstall PKG=<package name>
+pip-uninstall: ## remove pkg from venv. ex: `make pip-uninstall PKG=<pkg>`
 	source $(VENV_ACTIVATE) && pip uninstall $(PKG) && pip freeze > requirements.txt && deactivate
 
 upgrade: ## upgrade pip packages in venv
