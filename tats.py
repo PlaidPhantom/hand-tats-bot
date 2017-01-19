@@ -13,15 +13,17 @@ with open('wordlist.txt') as allWords:
 
 words = [word.strip('\n') for word in words]
 
-twitter = Twython(secrets['APP_KEY'], secrets['APP_SECRET'], secrets['OAUTH_TOKEN'], secrets['OAUTH_TOKEN_SECRET'])
+twitter = Twython(app_key=secrets['API_KEY'], app_secret=secrets['API_SECRET'], oauth_token=secrets['USER_TOKEN'], oauth_token_secret=secrets['USER_SECRET'])
 
-while True:
-    firstWord = words[randrange(len(words))]
-    secondWord = words[randrange(len(words))]
+twitter.update_status(status="👊hey world👊")
 
-    tat = firstWord.upper() + ' ' + secondWord.upper()
-
-    # print(tat)
-    twitter.update_status(status=tat)
-
-    sleep(5)
+#while True:
+#    firstWord = words[randrange(len(words))]
+#    secondWord = words[randrange(len(words))]
+#
+#    tat = firstWord.upper() + ' ' + secondWord.upper()
+#
+#    # print(tat)
+#    twitter.update_status(status=tat)
+#
+#    sleep(5)
