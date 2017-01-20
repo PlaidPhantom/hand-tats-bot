@@ -42,3 +42,7 @@ run: ## start bot service
 
 stop: ## stop service
 	kill $$(cat *.pid) && rm *.pid
+
+install: ## set up linux daemon (assumes systemd)
+	cp tats.service /etc/systemd/system/
+	systemctl enable tats

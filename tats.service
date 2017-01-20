@@ -1,0 +1,9 @@
+[Unit]
+Description=Hand_Tats bot
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/handtats/tats.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
