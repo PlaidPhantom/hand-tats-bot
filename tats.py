@@ -1,3 +1,5 @@
+import time
+
 from random import randrange
 from time import sleep
 from json import load
@@ -13,17 +15,30 @@ with open('wordlist.txt') as allWords:
 
 words = [word.strip('\n') for word in words]
 
-twitter = Twython(app_key=secrets['API_KEY'], app_secret=secrets['API_SECRET'], oauth_token=secrets['USER_TOKEN'], oauth_token_secret=secrets['USER_SECRET'])
+twitter = Twython(secrets['APP_KEY'], secrets['APP_SECRET'], secrets['USER_TOKEN'], secrets['USER_SECRET'])
 
-twitter.update_status(status="👊hey world👊")
+#twitter.update_status(status="👊hey world👊")
 
-#while True:
-#    firstWord = words[randrange(len(words))]
-#    secondWord = words[randrange(len(words))]
-#
-#    tat = firstWord.upper() + ' ' + secondWord.upper()
-#
-#    # print(tat)
-#    twitter.update_status(status=tat)
-#
-#    sleep(5)
+def tweet():
+    firstWord = words[randrange(len(words))]
+    secondWord = words[randrange(len(words))]
+
+    tat = '👊' + firstWord.upper() + ' ' + secondWord.upper() + '👊'
+
+    # print(tat)
+    twitter.update_status(status=tat)
+
+# http://stackoverflow.com/questions/8600161/executing-periodic-actions-in-python
+def do_every(period,f,*args):
+    def g_tick():
+        t = time.time()
+        count = 0
+        while True:
+            count += 1
+            yield max(t + count*period - time.time(),0)
+    g = g_tick()
+    while True:
+        time.sleep(next(g))
+        f(*args)
+
+do_every(4 * 60 * 60, tweet)
