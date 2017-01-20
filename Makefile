@@ -43,6 +43,13 @@ run: ## start bot service
 stop: ## stop service
 	kill $$(cat *.pid) && rm *.pid
 
-install: ## set up linux daemon (assumes systemd)
-	cp tats.service /etc/systemd/system/
+install: clean ## set up linux daemon (assumes ubuntu/systemd)
+	adduser -r handtats && \
+        mkdir /opt/handtats/ && \
+	cp ./* /opt/handtats/ && \
+	cd /opt/handtats/ && \
+	chown -R handtats . && \
+	chmod +x run.sh && \
+	make configure && \
+	cp tats.service /usr/local/systemd/system/ && \
 	systemctl enable tats
