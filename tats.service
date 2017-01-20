@@ -2,7 +2,7 @@
 Description=Hand_Tats bot
 
 [Service]
-ExecStart=/usr/bin/python3 /opt/handtats/tats.py
+ExecStart=/opt/handtats/run.sh
 Restart=on-abort
 
 [Install]
