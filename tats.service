@@ -2,6 +2,8 @@
 Description=Hand_Tats bot
 
 [Service]
+Type=simple
+WorkingDirectory=/opt/handtats
 ExecStart=/opt/handtats/run.sh
 Restart=on-abort
 
