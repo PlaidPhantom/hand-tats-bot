@@ -11,10 +11,15 @@ mkdir $INSTALLDIR
 cp ./* $INSTALLDIR
 cd $INSTALLDIR
 
+echo "settings permissions..."
 chown -R handtats $INSTALLDIR
 chmod +x run.sh
 
 make configure
 
-cp tats.service $SYSTEMD_DIR
-systemctl enable tats
+echo "linking service definition in $SYSTEMD_DIR..."
+ln -s tats.service $SYSTEMD_DIR
+
+echo "Hand Tats bot service has been set up.  Make sure to create the "
+echo "secrets.json file and set appropriate permissions, then start the service"
+echo "using the command `systemctl enable tats`"
