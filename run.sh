@@ -2,6 +2,6 @@
 
 source ./venv/*/activate
 
-exec python tats.py $@
+exec python3 tats.py $@
 
 deactivate
