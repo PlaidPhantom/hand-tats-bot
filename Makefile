@@ -19,7 +19,7 @@ help: ## Show this help text
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 configure: ## set up virtualenv, pip. Installs virtualenv globally
-	pip install virtualenv
+	$(PYTHON) -m pip install virtualenv
 	$(PYTHON) -m virtualenv $(VENV_NAME)
 	source $(VENV_ACTIVATE) && pip install -r requirements.txt && deactivate
 
