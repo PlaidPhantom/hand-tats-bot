@@ -4,7 +4,7 @@ INSTALLDIR="/opt/handtats/"
 SYSTEMD_DIR="/usr/local/systemd/system/tats.service"
 
 echo "Creating service user..."
-adduser -r handtats
+adduser --system handtats
 
 echo "Creating install directory $INSTALLDIR..."
 mkdir $INSTALLDIR

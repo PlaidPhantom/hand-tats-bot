@@ -21,16 +21,16 @@ help: ## Show this help text
 configure: ## set up virtualenv, pip. Installs virtualenv globally
 	$(PYTHON) -m pip install virtualenv
 	$(PYTHON) -m virtualenv $(VENV_NAME)
-	source $(VENV_ACTIVATE) && pip install -r requirements.txt && deactivate
+	. $(VENV_ACTIVATE) && pip install -r requirements.txt && deactivate
 
 pip-install: ## install pip pkg to venv. ex: `make pip-install PKG=<pkg>`
-	source $(VENV_ACTIVATE) && pip install $(PKG) && pip freeze > requirements.txt && deactivate
+	. $(VENV_ACTIVATE) && pip install $(PKG) && pip freeze > requirements.txt && deactivate
 
 pip-uninstall: ## remove pkg from venv. ex: `make pip-uninstall PKG=<pkg>`
-	source $(VENV_ACTIVATE) && pip uninstall $(PKG) && pip freeze > requirements.txt && deactivate
+	. $(VENV_ACTIVATE) && pip uninstall $(PKG) && pip freeze > requirements.txt && deactivate
 
 upgrade: ## upgrade pip packages in venv
-	source $(VENV_ACTIVATE) && pip install --upgrade -r requirements.txt && pip freeze > requirements.txt && deactivate
+	. $(VENV_ACTIVATE) && pip install --upgrade -r requirements.txt && pip freeze > requirements.txt && deactivate
 
 clean: ## clean up all build artifacts, including packages and venv
 	rm -Rf __pycache__/
