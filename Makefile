@@ -20,7 +20,7 @@ help: ## Show this help text
 
 configure: ## set up virtualenv, pip. Installs virtualenv globally
 	$(PYTHON) -m pip install virtualenv
-	$(PYTHON) -m virtualenv $(VENV_NAME)
+	$(PYTHON) -m virtualenv -p $(PYTHON) $(VENV_NAME)
 	. $(VENV_ACTIVATE) && pip install -r requirements.txt && deactivate
 
 pip-install: ## install pip pkg to venv. ex: `make pip-install PKG=<pkg>`

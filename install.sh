@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INSTALLDIR="/opt/handtats/"
-SYSTEMD_DIR="/usr/local/systemd/system/tats.service"
+SYSTEMD_DIR="/etc/systemd/system/tats.service"
 
 echo "Creating service user..."
 adduser --system handtats
