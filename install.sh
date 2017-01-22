@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INSTALLDIR="/opt/handtats/"
-SYSTEMD_DIR="/usr/local/systemd/system/"
+SYSTEMD_DIR="/usr/local/systemd/system/tats.service"
 
 echo "Creating service user..."
 adduser -r handtats
@@ -17,7 +17,7 @@ chmod +x run.sh
 
 make configure
 
-echo "linking service definition in $SYSTEMD_DIR..."
+echo "linking service definition to $SYSTEMD_DIR..."
 ln -s tats.service $SYSTEMD_DIR
 
 echo "Hand Tats bot service has been set up.  Make sure to create the "
