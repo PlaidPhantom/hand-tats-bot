@@ -41,4 +41,5 @@ def do_every(period,f,*args):
         time.sleep(next(g))
         f(*args)
 
+tweet()
 do_every(4 * 60 * 60, tweet)
