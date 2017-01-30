@@ -9,6 +9,14 @@ from twython import Twython
 
 print('Starting Hand Tats service at ' + str(datetime.now()))
 
+with open('secrets.json') as secretsfile:
+    secrets = load(secretsfile)
+
+with open('wordlist.txt') as allWords:
+    words = allWords.readlines()
+
+words = [word.strip('\n') for word in words]
+
 twitter = Twython(secrets['APP_KEY'], secrets['APP_SECRET'], secrets['USER_TOKEN'], secrets['USER_SECRET'])
 
 #twitter.update_status(status="👊hey world👊")
@@ -34,14 +42,6 @@ def do_every(period,f,*args):
     while True:
         time.sleep(next(g))
         f(*args)
-
-with open('secrets.json') as secretsfile:
-    secrets = load(secretsfile)
-
-with open('wordlist.txt') as allWords:
-    words = allWords.readlines()
-
-words = [word.strip('\n') for word in words]
 
 tweet()
 do_every(4 * 60 * 60, tweet)
