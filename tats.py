@@ -1,19 +1,13 @@
 import time
 
+from datetime import datetime
 from random import randrange
 from time import sleep
 from json import load
 
 from twython import Twython
 
-with open('secrets.json') as secretsfile:
-    secrets = load(secretsfile)
-
-
-with open('wordlist.txt') as allWords:
-    words = allWords.readlines()
-
-words = [word.strip('\n') for word in words]
+print('Starting Hand Tats service at ' + str(datetime.now()))
 
 twitter = Twython(secrets['APP_KEY'], secrets['APP_SECRET'], secrets['USER_TOKEN'], secrets['USER_SECRET'])
 
@@ -25,7 +19,7 @@ def tweet():
 
     tat = '👊' + firstWord.upper() + ' ' + secondWord.upper() + '👊'
 
-    # print(tat)
+    print('Tweeted at' + str(datetime.now()) + ': ' + tat)
     twitter.update_status(status=tat)
 
 # http://stackoverflow.com/questions/8600161/executing-periodic-actions-in-python
@@ -40,6 +34,14 @@ def do_every(period,f,*args):
     while True:
         time.sleep(next(g))
         f(*args)
+
+with open('secrets.json') as secretsfile:
+    secrets = load(secretsfile)
+
+with open('wordlist.txt') as allWords:
+    words = allWords.readlines()
+
+words = [word.strip('\n') for word in words]
 
 tweet()
 do_every(4 * 60 * 60, tweet)
