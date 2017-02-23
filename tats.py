@@ -17,18 +17,18 @@ with open('wordlist.txt') as allWords:
 
 words = [word.strip('\n') for word in words]
 
-twitter = Twython(secrets['APP_KEY'], secrets['APP_SECRET'], secrets['USER_TOKEN'], secrets['USER_SECRET'])
-
-#twitter.update_status(status="👊hey world👊")
-
 def tweet():
     firstWord = words[randrange(len(words))]
     secondWord = words[randrange(len(words))]
 
     tat = '👊' + firstWord.upper() + ' ' + secondWord.upper() + '👊'
 
-    print('Tweeted at' + str(datetime.now()) + ': ' + tat)
-    twitter.update_status(status=tat)
+    try:
+        twitter = Twython(secrets['APP_KEY'], secrets['APP_SECRET'], secrets['USER_TOKEN'], secrets['USER_SECRET'])
+        print('Tweeted at' + str(datetime.now()) + ': ' + tat)
+        twitter.update_status(status=tat)
+    except Exception as e:
+        print(e)
 
 # http://stackoverflow.com/questions/8600161/executing-periodic-actions-in-python
 def do_every(period,f,*args):
