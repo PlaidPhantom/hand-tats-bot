@@ -6,11 +6,11 @@ SYSTEMD_DIR="/etc/systemd/system"
 echo "Creating service user..."
 adduser --system handtats
 
-echo "settings permissions..."
-chown -R handtats .
-chmod +x run.sh
-
+echo "Running `make configure`..."
 make configure
+
+echo "Fixing permissions..."
+chown -R handtats .
 
 echo "Creating service definition in $SYSTEMD_DIR..."
 tee $SYSTEMD_DIR/handtats.service <<SERVICE
@@ -27,8 +27,8 @@ Restart=on-abort
 WantedBy=multi-user.target
 SERVICE
 
-systemctl enable tats
+systemctl enable handtats
 
 echo "Hand Tats bot service has been set up.  Make sure to create the "
 echo "secrets.json file and set appropriate permissions, then start the service"
-echo "using the command `systemctl start tats`"
+echo "using the command `systemctl start handtats`"
