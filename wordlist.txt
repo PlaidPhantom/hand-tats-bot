@@ -305,7 +305,6 @@ conk
 cony
 cook
 cool
-coon
 coop
 coot
 cope
@@ -685,7 +684,6 @@ gone
 gong
 good
 goof
-gook
 goon
 goop
 gore
