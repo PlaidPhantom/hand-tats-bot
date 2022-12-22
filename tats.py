@@ -1,10 +1,9 @@
 import time
-
 from datetime import datetime
 from random import randrange
 from time import sleep
 from json import load
-
+from mastodon import Mastodon
 from twython import Twython
 
 print('Starting Hand Tats service at ' + str(datetime.now()))
@@ -17,18 +16,37 @@ with open('wordlist.txt') as allWords:
 
 words = [word.strip('\n') for word in words]
 
-def tweet():
+def generate_tat():
     firstWord = words[randrange(len(words))]
     secondWord = words[randrange(len(words))]
 
-    tat = '👊' + firstWord.upper() + ' ' + secondWord.upper() + '👊'
+    return '👊' + firstWord.upper() + ' ' + secondWord.upper() + '👊'
 
+def tweet(tat):
     try:
-        twitter = Twython(secrets['APP_KEY'], secrets['APP_SECRET'], secrets['USER_TOKEN'], secrets['USER_SECRET'])
-        print('Tweeted at' + str(datetime.now()) + ': ' + tat)
+        twitter = Twython(
+            secrets['TWITTER_APP_KEY'],
+            secrets['TWITTER_APP_SECRET'],
+            secrets['TWITTER_USER_TOKEN'],
+            secrets['TWITTER_USER_SECRET'])
+
         twitter.update_status(status=tat)
+        print('Tweeted at' + str(datetime.now()) + ': ' + tat)
     except Exception as e:
         print(e)
+
+def toot(tat):
+    try:
+        mastodon = Mastodon(access_token=secrets['MASTODON_ACCESS_TOKEN'], api_base_url="https://botsin.space")
+        mastodon.toot(tat)
+        print('Tooted at' + str(datetime.now()) + ': ' + tat)
+    except Exception as e:
+        print(e)
+
+def post_all():
+    tat = generate_tat()
+    tweet(tat)
+    toot(tat)
 
 # http://stackoverflow.com/questions/8600161/executing-periodic-actions-in-python
 def do_every(period,f,*args):
@@ -43,5 +61,5 @@ def do_every(period,f,*args):
         time.sleep(next(g))
         f(*args)
 
-tweet()
-do_every(4 * 60 * 60, tweet)
+post_all()
+do_every(4 * 60 * 60, post_all)
