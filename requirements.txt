@@ -7,7 +7,7 @@ Mastodon.py==1.8.0
 oauthlib==2.0.1
 python-dateutil==2.8.2
 python-magic==0.4.27
-requests==2.20.0
+requests==2.31.0
 requests-oauthlib==0.7.0
 six==1.16.0
 twython==3.4.0
